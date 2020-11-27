@@ -40,16 +40,29 @@ def pystarks_speak(audio_string):
     engine.say(audio_string)
     engine.runAndWait()
     engine.stop()
+    print(audio_string)
 
 def respond(voice_data):
     if "how are you" in voice_data:
         pystarks_speak("I'm fine thank you. How are you too?")
-    if "i'm thanks" in voice_data:
+    if "fine" in voice_data:
         pystarks_speak("That's okay")
     if "what is your name" in voice_data:
         pystarks_speak("My name is Starks")
     if 'what time is it' in voice_data:
         pystarks_speak(f"The time is {now.hour}: {now.minute}")
+    if "shutdown" in voice_data:
+        pystarks_speak("The system will shutdown in 2 minutes")
+        os.system("shutdown -s -t 120")
+        exit()
+    if "restart" in voice_data:
+        pystarks_speak("The system will restart in 2 minutes")
+        os.system("shutdown -r -t 120")
+        exit()
+    if "start notepad" in voice_data:
+        pystarks_speak("Starting notepad")
+        os.system("start notepad")
+        exit()
     if "what is today's date" in voice_data:
         date = time.strftime("%a, %d %b %Y")
         pystarks_speak(f"Today's date is {date}")

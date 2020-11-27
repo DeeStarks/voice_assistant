@@ -24,7 +24,10 @@ You can add other commands, but these are the ones that exist
 - What is your name?
 - What time is it?
 - What is today's date?
-- Play me a song (change the music to your music path in the section)
+- Shutdown (shuts the system in 2 minutes. NB: For Windows users only. Change the shutdown command if using a different Operating System.)
+- Restart (Restarts the system in 2 minutes. NB: For Windows users only. Change the restart command if using a different Operating System.)
+- Start Notepad
+- Play me a song (change to your music path)
 - Search something for me
 - Find a location
 - Goodbye
