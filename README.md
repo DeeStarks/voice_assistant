@@ -24,6 +24,7 @@ You can add other commands, but these are the ones that exist
 - What is your name?
 - What time is it?
 - What is today's date?
+- Play me a song (change the music to your music path in the section)
 - Search something for me
 - Find a location
-- Exit
+- Goodbye
