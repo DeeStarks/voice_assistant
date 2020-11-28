@@ -72,7 +72,9 @@ def respond(voice_data):
         pystarks_speak("Okay, sit back, relax, enjoy, and let me select a song for you")
         names = []
         for song in os.listdir(r'c:\Users\Aser\Music'):
-            names.append(song)
+            splitted = song.split('.')
+            if splitted[-1] == "mp3":
+                names.append(song)
         any_song = random.choice(names)
         os.system(rf"start C:\Users\Aser\Music\{any_song}")
         exit()
