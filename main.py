@@ -48,7 +48,7 @@ def respond(voice_data):
     if "fine" in voice_data:
         pystarks_speak("That's okay")
     if "what is your name" in voice_data:
-        pystarks_speak("My name is Starks")
+        pystarks_speak("My name is PyStarks")
     if 'what time is it' in voice_data:
         pystarks_speak(f"The time is {now.hour}: {now.minute}")
     if "shutdown" in voice_data:
@@ -81,23 +81,28 @@ def respond(voice_data):
         os.system(f"start C:\\Users\\Aser\\Music\\{random.choice(names)}")
         exit()
 
-    if 'search something for me' in voice_data:
-        search = record_audio("What do you want to search for?")
-        url = "https://google.com/search?q=" + search
+    if 'search something' in voice_data:
+        search_google = record_audio("What do you want to search for?")
+        url = "https://google.com/search?q=" + search_google
         webbrowser.get().open(url)
-        pystarks_speak("Here is what I found for "+search)
+        pystarks_speak("Here is what I found for "+search_google)
+    if 'video' in voice_data:
+        search_youtube = record_audio("I can only get videos for you on Youtube. So what video do you want to watch on Youtube?")
+        url = "https://www.youtube.com/results?search_query=" + search_youtube
+        webbrowser.get().open(url)
+        pystarks_speak("Here are the videos I found for "+search_youtube)
     if 'find a location' in voice_data:
         location = record_audio("What is the location you want me to find?")
         url = "https://google.nl/maps/place/"+location+"/&amp;"
         webbrowser.get().open(url)
         pystarks_speak("Here is the location of "+location)
     if "goodbye" in voice_data:
-        pystarks_speak("Goodbye")
+        pystarks_speak("Goodbye Daniel")
         exit()
 
 
 time.sleep(1)
-pystarks_speak("Hello, how can I help you?")
-while 1:
+pystarks_speak("Hello Daniel, how can I help you?")
+while True:
     voice_data = record_audio()
     respond(voice_data)
