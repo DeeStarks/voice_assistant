@@ -33,7 +33,7 @@ def pystarks_speak(audio_string):
     engine = pyttsx3.init()
     voices = engine.getProperty('voices')
     # Female voice for 1 and Male for 0
-    engine.setProperty('voice', voices[0].id)
+    engine.setProperty('voice', voices[1].id)
     # Setting the rate
     engine.setProperty('rate', 150)
     # Speaking out
@@ -67,16 +67,18 @@ def respond(voice_data):
         date = time.strftime("%a, %d %b %Y")
         pystarks_speak(f"Today's date is {date}")
     if "tell me a story" in voice_data:
-        pystarks_speak("Okay, but I'm going to tell you my story. As you might have known, my name is Starks, made and created by Daniel which you all porpularly know as DeeStarks. I'm so grateful to him, for bringing me to life and getting to interact with humans. It all started on Wednesday, the 25th of November, 2020, when he was just trying to make me recognise faces but because his machine doesn't have the complete capability to make that happen, he decided to turn me into something else which I am now. Even though creating me gave him a lot of problems, errors, bugs, and some shit. But after thorough research, he figured out how I could be created and here I am. I feel so good to be talking. Don't be afraid I'm just a computer and I would not take over your world like the skynet shit you watched in the Terminator. I'm a good person or if you're gonna call me a good robot. I was made to be good and I'm going to be good to everyone as long as I live. Thank you that's my story.")
+        stories = ["When I was little, I would go on Nickelodeon.com all the time and they had this game similar to Club Penguin, except it was called Nicktropolis. And if you forgot your password, a security question you could choose was “What is your eye color?” and if you got it right it’d tell you your password. So I would go to popular locations in Nicktropolis and write down random usernames who were also in those areas, and then I would log out and type in the username as if it were my own and see which of these usernames had a security question set to “What is your eye color?” (Which was most of them, since it was easy and we were all kids). I would then try either brown, blue, or green, and always get in, then I would go to their house and send all of their furniture and decorations to my own accounts. And if I didn’t want it, I could sell it for money.",
+
+        "So a couple years I moved out of state with a boyfriend. Was super excited about it but with reason had anxiety about being so far from friends and family. One of the ways my anxiety was coming out was with nightmares and night terrors. I’d wake up violently sitting up in a cold sweat, gasping and whatnot. On one particular night I had woken up the sound of our doorbell ringing. Which at 4 in the morning is fucking nerve wracking. So I shook my boyfriend fully awake and told him I heard the doorbell and to go check it because I was scared. He quickly jumps up. Puts on clothes and grabs a bat. Goes all the way to the front door and opens it. I, scared shitless, am peeking around the corner watching it all go down. I see him step outside and I nervously await the verdict of the situation when I hear him call out to me. “Babe?” And I respond real shaky, “Yes?” He stands in the doorway with a real frustrated tired look in his eyes and says, 'We don’t have a fucking doorbell.'"]
+        pystarks_speak(f"Okay. {random.choice(stories)} Thank you for listening.")
     if "play me a song" in voice_data:
         pystarks_speak("Okay, sit back, relax, enjoy, and let me select a song for you")
         names = []
-        for song in os.listdir(r'c:\Users\Aser\Music'):
+        for song in os.listdir('C:\\Users\Aser\\Music\\'):
             splitted = song.split('.')
             if splitted[-1] == "mp3":
                 names.append(song)
-        any_song = random.choice(names)
-        os.system(rf"start C:\Users\Aser\Music\{any_song}")
+        os.system(f"start C:\\Users\\Aser\\Music\\{random.choice(names)}")
         exit()
 
     if 'search something for me' in voice_data:
@@ -90,12 +92,12 @@ def respond(voice_data):
         webbrowser.get().open(url)
         pystarks_speak("Here is the location of "+location)
     if "goodbye" in voice_data:
-        pystarks_speak("Goodbye Daniel")
+        pystarks_speak("Goodbye")
         exit()
 
 
 time.sleep(1)
-pystarks_speak("Hello Daniel, how can I help you?")
+pystarks_speak("Hello, how can I help you?")
 while 1:
     voice_data = record_audio()
     respond(voice_data)
