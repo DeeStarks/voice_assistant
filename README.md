@@ -28,7 +28,8 @@ You can add other commands, but these are the ones that exist
 - Restart (Restarts the system in 2 minutes. NB: For Windows users only. Change the restart command if using a different Operating System.)
 - Start Notepad
 - Play me a song (change to your music path)
-- PLay me a video
+- Play me a video
 - Search something for me
 - Find a location
 - Goodbye
+and lot more...
