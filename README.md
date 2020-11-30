@@ -31,5 +31,15 @@ You can add other commands, but these are the ones that exist
 - Play me a video
 - Search something for me
 - Find a location
+- Minimize the current window
+- Maximize the current window
+- Go left (to move cursor left)
+- Go right (to move cursor right)
+- Go up (to move cursor up)
+- Go down (to move cursor down)
+- Click
+- Whats's my screen resolution?
+- Take screenshot
+- Write (sends virtual keypresses to the computer and it depends on what window and text field have focus)
 - Goodbye
 and lot more...

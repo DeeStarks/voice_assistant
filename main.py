@@ -7,6 +7,9 @@ import os
 import random
 import pyttsx3
 from time import ctime
+import ctypes
+from ctypes import wintypes as w
+import pyautogui
 
 
 # Uncomment and run below to get your microphone index and set device_index to the value of the index
@@ -46,7 +49,7 @@ class Voice_Assistant():
         engine = pyttsx3.init()
         voices = engine.getProperty('voices')
         # Female voice for 1 and Male for 0
-        engine.setProperty('voice', voices[1].id)
+        engine.setProperty('voice', voices[0].id)
         # Setting the rate
         engine.setProperty('rate', 150)
         # Speaking out
@@ -69,7 +72,7 @@ class Voice_Assistant():
                 self.pystarks_speak("My name is PyStarks. What's your name?")
         if self.there_exists(["my name is"]):
             person_name = self.voice_data.split("is")[-1].strip()
-            self.pystarks_speak(f"Okay, I will remember that {person_name}")
+            self.pystarks_speak(f"Okay {person_name}, I'll make sure not to forget that")
             self.name = person_name
         if self.there_exists(['what time is it', 'what is the time', "what's the time"]):
             the_time = ctime().split(" ")[3].split(":")[0:2]
@@ -90,7 +93,6 @@ class Voice_Assistant():
         if self.there_exists(["start notepad"]):
             pystarks_speak("Starting notepad")
             os.system("start notepad")
-            exit()
         if self.there_exists(["what is today's date", "what's today's date","tell me today's date"]):
             date = time.strftime("%a, %d %b %Y")
             self.pystarks_speak(f"Today's date is {date}")
@@ -102,8 +104,9 @@ class Voice_Assistant():
             for song in os.listdir('C:\\Users\Aser\\Music\\'):
                 splitted = song.split('.')
                 if splitted[-1] == "mp3":
-                    names.append(song)
-            os.system(f"start C:\\Users\\Aser\\Music\\{random.choice(names)}")
+                    names.append(str(song))
+            random_song = random.randrange(len(names))
+            os.system(f"start C:\\Users\\Aser\\Music\\{names[random_song]}")
             exit()
         if self.there_exists(['search something', 'search google']):
             self.record_audio("What do you want to search for?")
@@ -123,13 +126,61 @@ class Voice_Assistant():
             url = "https://google.nl/maps/place/"+location+"/&amp;"
             webbrowser.get().open(url)
             self.pystarks_speak("Here is the location of "+location+" I found on google maps")
-        
+        if self.there_exists(["minimise"]):
+            self.pystarks_speak(f"Okay {self.name}")
+            user32 = ctypes.WinDLL('user32')
+            user32.GetForegroundWindow.argtypes = ()
+            user32.GetForegroundWindow.restype = w.HWND
+            user32.ShowWindow.argtypes = w.HWND,w.BOOL
+            user32.ShowWindow.restype = w.BOOL
+
+            SW_MAXIMIZE = 3
+            SW_MINIMIZE = 6
+
+            hWnd = user32.GetForegroundWindow()
+            user32.ShowWindow(hWnd, SW_MINIMIZE)
+        if self.there_exists(["maximize"]):
+            self.pystarks_speak(f"Okay {self.name}")
+            user32 = ctypes.WinDLL('user32')
+            user32.GetForegroundWindow.argtypes = ()
+            user32.GetForegroundWindow.restype = w.HWND
+            user32.ShowWindow.argtypes = w.HWND,w.BOOL
+            user32.ShowWindow.restype = w.BOOL
+
+            SW_MAXIMIZE = 3
+            SW_MINIMIZE = 6
+
+            hWnd = user32.GetForegroundWindow()
+            user32.ShowWindow(hWnd, SW_MAXIMIZE)
+        if self.there_exists(["go left"]):
+            pyautogui.moveRel(-30, 0, duration=0.25)
+        if self.there_exists(["go up"]):
+            pyautogui.moveRel(0, -30, duration=0.25)
+        if self.there_exists(["go down"]):
+            pyautogui.moveRel(0, 30, duration=0.25)
+        if self.there_exists(["go right"]):
+            pyautogui.moveRel(30, 0, duration=0.25)
+        if self.there_exists(["click"]):
+            pyautogui.click()
+        if self.there_exists(["screenshot"]):
+            screenshot_files = []
+            now = datetime.datetime.now()
+            for file in os.listdir('C:\\Users\\aser\\Pictures'):
+                screenshot_files.append(file)
+            if "PyStarks_Screenshots" not in screenshot_files:
+                os.system("mkdir C:\\Users\\aser\\Pictures\\PyStarks_Screenshots")
+            myScreenshot = pyautogui.screenshot()
+            myScreenshot.save(f'C:\\Users\\aser\\Pictures\\PyStarks_Screenshots\\screenshot{now.second}{now.minute}{now.hour}{now.day}{now.month}{now.year}.jpg')
+            self.pystarks_speak("The screenshot has been taken")
+        if self.there_exists(["write"]):
+            self.voice_data = ''
+            self.record_audio(f"Okay {self.name}, lets write")
+            pyautogui.typewrite(self.voice_data)
         if self.there_exists(["goodbye", "quit", "exit"]):
             self.pystarks_speak(f"Goodbye {self.name}")
             exit()
 
 
-time.sleep(1)
 va = Voice_Assistant()
 va.pystarks_speak("Hello, how can I help you?")
 while True:
