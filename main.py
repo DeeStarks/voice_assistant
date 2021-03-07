@@ -49,7 +49,7 @@ class Voice_Assistant():
         engine = pyttsx3.init()
         voices = engine.getProperty('voices')
         # Female voice for 1 and Male for 0
-        engine.setProperty('voice', voices[0].id)
+        engine.setProperty('voice', voices[1].id)
         # Setting the rate
         engine.setProperty('rate', 150)
         # Speaking out
@@ -105,8 +105,8 @@ class Voice_Assistant():
                 splitted = song.split('.')
                 if splitted[-1] == "mp3":
                     names.append(str(song))
-            random_song = random.randrange(len(names))
-            os.system(f"start C:\\Users\\Aser\\Music\\{names[random_song]}")
+            random_song = random.choice(names)
+            os.system(f'"C:\\Users\\Aser\\Music\\{random_song}"')
             exit()
         if self.there_exists(['search something', 'search google']):
             self.record_audio("What do you want to search for?")
